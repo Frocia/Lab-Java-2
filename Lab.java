@@ -15,7 +15,6 @@ public class Lab {
 
         public int getX() { return x; }
         public int getY() { return y; }
-
         public void setX(int x) { this.x = x; }
         public void setY(int y) { this.y = y; }
 
@@ -79,22 +78,35 @@ public class Lab {
     }
 
     /** ---------------- Методы ---------------- */
+    private int readInt(Scanner scanner, String prompt) {
+        int value;
+        while (true) {
+            System.out.print(prompt);
+            if (scanner.hasNextInt()) {
+                value = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("Ошибка! Введите целое число.");
+                scanner.next(); // пропустить некорректный ввод
+            }
+        }
+        return value;
+    }
 
-    // 1.1 — Точки (пользовательский ввод)
+    // 1.1 — Точки
     public void task11(Scanner scanner) {
         Point[] points = new Point[3];
         System.out.println("Введите координаты 3 точек (X Y):");
         for (int i = 0; i < 3; i++) {
-            System.out.print("Точка " + (i + 1) + ": ");
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
+            int x = readInt(scanner, "X: ");
+            int y = readInt(scanner, "Y: ");
             points[i] = new Point(x, y);
         }
         System.out.println("Созданные точки:");
         for (Point p : points) System.out.println(p);
     }
 
-    // 2.1 — Линии (пользовательский ввод)
+    // 2.1 — Линии
     public void task21(Scanner scanner) {
         Line line1 = new Line(new Point(1, 3), new Point(23, 8));
         Line line2 = new Line(new Point(5, 10), new Point(25, 10));
@@ -106,20 +118,17 @@ public class Lab {
         System.out.println("Линия 3: " + line3);
 
         System.out.println("\nИзменяем линии:");
-        System.out.print("Линия 1, начало (X Y): ");
-        line1.setStart(new Point(scanner.nextInt(), scanner.nextInt()));
-        System.out.print("Линия 1, конец (X Y): ");
-        line1.setEnd(new Point(scanner.nextInt(), scanner.nextInt()));
+        line1.setStart(new Point(readInt(scanner, "Линия 1, начало X: "), readInt(scanner, "Y: ")));
+        line1.setEnd(new Point(readInt(scanner, "Линия 1, конец X: "), readInt(scanner, "Y: ")));
 
-        System.out.print("Линия 2, начало (X Y): ");
-        line2.setStart(new Point(scanner.nextInt(), scanner.nextInt()));
-        System.out.print("Линия 2, конец (X Y): ");
-        line2.setEnd(new Point(scanner.nextInt(), scanner.nextInt()));
+        line2.setStart(new Point(readInt(scanner, "Линия 2, начало X: "), readInt(scanner, "Y: ")));
+        line2.setEnd(new Point(readInt(scanner, "Линия 2, конец X: "), readInt(scanner, "Y: ")));
 
         line3 = new Line(line1.getStart(), line2.getEnd());
 
         System.out.println("\nПосле изменений:");
-        System.out.println("Линия 1: " + line1);
+        System.out.
+                println("Линия 1: " + line1);
         System.out.println("Линия 2: " + line2);
         System.out.println("Линия 3: " + line3);
     }
@@ -140,30 +149,26 @@ public class Lab {
         System.out.println("Андрей: " + andrey);
     }
 
-    // 4.1 — Точки (пользовательский ввод)
+    // 4.1 — Точки
     public void task41(Scanner scanner) {
-        System.out.print("Введите координаты точки 1 (X Y): ");
-        Point p1 = new Point(scanner.nextInt(), scanner.nextInt());
-        System.out.print("Введите координаты точки 2 (X Y): ");
-        Point p2 = new Point(scanner.nextInt(), scanner.nextInt());
+        Point p1 = new Point(readInt(scanner, "Точка 1, X: "), readInt(scanner, "Y: "));
+        Point p2 = new Point(readInt(scanner, "Точка 2, X: "), readInt(scanner, "Y: "));
 
         System.out.println("Точка 1: " + p1);
         System.out.println("Точка 2: " + p2);
     }
 
-    // 4.2 — Линии (пользовательский ввод)
+    // 4.2 — Линии
     public void task42(Scanner scanner) {
-        System.out.print("Линия 1, начало (X Y): ");
-        int x1 = scanner.nextInt(), y1 = scanner.nextInt();
-        System.out.print("Линия 1, конец (X Y): ");
-        int x2 = scanner.nextInt(), y2 = scanner.nextInt();
-        Line line1 = new Line(x1, y1, x2, y2);
+        Line line1 = new Line(
+                readInt(scanner, "Линия 1, начало X: "), readInt(scanner, "Y: "),
+                readInt(scanner, "Линия 1, конец X: "), readInt(scanner, "Y: ")
+        );
 
-        System.out.print("Линия 2, начало (X Y): ");
-        int x3 = scanner.nextInt(), y3 = scanner.nextInt();
-        System.out.print("Линия 2, конец (X Y): ");
-        int x4 = scanner.nextInt(), y4 = scanner.nextInt();
-        Line line2 = new Line(x3, y3, x4, y4);
+        Line line2 = new Line(
+                readInt(scanner, "Линия 2, начало X: "), readInt(scanner, "Y: "),
+                readInt(scanner, "Линия 2, конец X: "), readInt(scanner, "Y: ")
+        );
 
         Line line3 = new Line(line1.getStart(), line2.getEnd());
 
@@ -172,14 +177,13 @@ public class Lab {
         System.out.println("Линия 3: " + line3);
     }
 
-    // 5.3 — Длина линии (пользовательский ввод)
+    // 5.3 — Длина линии
     public void task53(Scanner scanner) {
-        System.out.print("Введите начало линии (X Y): ");
-        int x1 = scanner.nextInt(), y1 = scanner.nextInt();
-        System.out.print("Введите конец линии (X Y): ");
-        int x2 = scanner.nextInt(), y2 = scanner.nextInt();
+        Line line = new Line(
+                readInt(scanner, "Начало линии X: "), readInt(scanner, "Y: "),
+                readInt(scanner, "Конец линии X: "), readInt(scanner, "Y: ")
+        );
 
-        Line line = new Line(x1, y1, x2, y2);
         System.out.println("Линия: " + line);
         System.out.println("Длина линии: " + line.getLength());
     }
